@@ -51,6 +51,7 @@
                             <td>{{ $mhs->nim }}</td>
                             <td>{{ $mhs->alamat }}</td>
                             <td><a href="/dashboard/mahasiswa/{{ $mhs->id }}/edit" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                <a href="/dashboard/mahasiswa/pdf" class="btn btn-sm btn-success"><i class="fas fa-file-pdf"></i></a>
 
                                 <form action="/dashboard/mahasiswa/{{ $mhs->id }}" method="POST" class="d-inline">
                                     @csrf

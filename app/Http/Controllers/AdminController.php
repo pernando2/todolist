@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MataKuliah;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -74,6 +75,7 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'mata_kuliah' => "required",
+            'user_id' => mt_rand(1,6),
         ]);
 
         MataKuliah::create($validatedData);
@@ -169,5 +171,14 @@ class AdminController extends Controller
         MataKuliah::destroy($matkul->id);
 
         return redirect('/dashboard/mataKuliah')->with('delete', 'Mahasiswa has been deleted!');
+    }
+
+    public function generatePDF()
+    {
+        $data = MataKuliah::where('user_id', auth()->user()->id)->groupBy('mata_kuliah')->get();
+          
+        $pdf = PDF::loadView('backend-template.admin.mahasiswa.pdf', ['lists' => $data]);
+    
+        return $pdf->download('Mahasiswa.pdf');
     }
 }
