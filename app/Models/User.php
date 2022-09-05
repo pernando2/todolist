@@ -44,10 +44,6 @@ class User extends Authenticatable
     ];
 
     public function matakuliahs(){
-        return $this->hasMany(MataKuliah::class);
-    }
-
-    public function todolists(){
-        return $this->hasMany(ToDoList::class);
+        return $this->belongsToMany(MataKuliah::class);
     }
 }

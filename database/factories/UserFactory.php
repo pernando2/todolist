@@ -18,7 +18,7 @@ class UserFactory extends Factory
             'nama' => $this->faker->name(),
             'username' => $this->faker->unique()->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'mata_kuliah_id' => mt_rand(1, 3),
+            // 'mata_kuliah_id' => mt_rand(1, 3),
             'nim' => $this->faker->randomNumber(5, true),
             'alamat' => $this->faker->address(),
             'remember_token' => Str::random(10),

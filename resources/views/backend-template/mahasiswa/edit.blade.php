@@ -12,11 +12,16 @@
         @method('put')
         <div class="mb-3">
             <label for="nama_list" class="form-label">To do List</label>
-            <input type="text" class="form-control @error('nama_list') is-invalid @enderror" name="nama_list" id="nama_list"
-                value="{{ old('nama_list', $list->nama_list) }}" autofocus>
+            <select class="custom-select" name="mata_kuliah">
+                <option selected>Select Mata Kuliah </option>
+                @foreach ($listMatkul as $matkul)
+
+                <option value="{{ $matkul->mata_kuliah }}">{{ $matkul->mata_kuliah }}</option>
+                @endforeach
+            </select>
             @error('title')
             <div class="invalid-feedback">
-                {{ $message }}
+                {{ $message }} 
             </div>
             @enderror
         </div>

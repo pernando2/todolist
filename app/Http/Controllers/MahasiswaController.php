@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MataKuliah;
 use App\Models\ToDoList;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -15,9 +16,10 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        // dd(ToDoList::where('user_id', auth()->user()->id)->get());
+        // dd(MataKuliah::all());
         return view('backend-template.mahasiswa.content', [
-            'lists' => ToDoList::where('user_id', auth()->user()->id)->get()
+            'lists' => MataKuliah::where('user_id', auth()->user()->id)->groupBy('mata_kuliah')->get(),
+            'listMatkul' => MataKuliah::groupBy('mata_kuliah')->get()
         ]);
     }
 
@@ -40,12 +42,12 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_list' => "required|max:255",
+            'mata_kuliah' => "required|max:255",
             'user_id' => "required",
         ]);
         // dd($validatedData);
 
-        ToDoList::create($validatedData);
+        MataKuliah::create($validatedData);
 
         return redirect('/dashboard')->with('success', 'List has been created!');
     }
@@ -54,7 +56,7 @@ class MahasiswaController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\MataKuliah  $mataKuliah
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show(MataKuliah $mataKuliah)
     {
@@ -67,10 +69,11 @@ class MahasiswaController extends Controller
      * @param  \App\Models\MataKuliah  $mataKuliah
      * @return \Illuminate\Http\Response
      */
-    public function edit(ToDoList $list)
+    public function edit(MataKuliah $list)
     {
         return view('backend-template.mahasiswa.edit', [
-            'list' => $list
+            'list' => $list,
+            'listMatkul' => MataKuliah::groupBy('mata_kuliah')->get(),
         ]);
     }
 
@@ -81,15 +84,15 @@ class MahasiswaController extends Controller
      * @param  \App\Models\MataKuliah  $mataKuliah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ToDoList $list)
+    public function update(Request $request, MataKuliah $list)
     {
         $rules = [
-            'nama_list' => "required|max:255",
+            'mata_kuliah' => "required|max:255",
         ];
 
         $validatedData = $request->validate($rules);
 
-        ToDoList::where('id', $list->id)->update($validatedData);
+        MataKuliah::where('id', $list->id)->update($validatedData);
 
         return redirect('/dashboard')->with('success', 'List has been updated!');
     }
@@ -100,9 +103,9 @@ class MahasiswaController extends Controller
      * @param  \App\Models\MataKuliah  $mataKuliah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ToDoList $list)
+    public function destroy(MataKuliah $list)
     {
-        ToDoList::destroy($list->id);
+        MataKuliah::destroy($list->id);
 
         return redirect('/dashboard')->with('delete', 'List has been deleted!');
     }

@@ -21,11 +21,19 @@ class AdminController extends Controller
         ]);
     }
 
+    public function indexDashboard()
+    {
+        // dd(Mahasiswa::all());
+        return view('backend-template.content', [
+            'mahasiswa' => User::all(),
+        ]);
+    }
+
     public function indexMatkul()
     {
         // dd(Mahasiswa::all());
         return view('backend-template.admin.mataKuliah.content', [
-            'matakuliah' => MataKuliah::all(),
+            'matakuliah' => MataKuliah::groupBy('mata_kuliah')->get(),
         ]);
     }
 

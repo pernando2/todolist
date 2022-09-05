@@ -48,7 +48,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ auth()->user()->nama }}</td>
-                        <td>{{ $list->nama_list }}</td>
+                        <td>{{ $list->mata_kuliah }}</td>
                         <td><a href="/dashboard/{{ $list->id }}/edit" class="btn btn-sm btn-warning"><i
                                     class="fas fa-edit"></i></a>
 
@@ -82,8 +82,17 @@
                     @csrf
                     <div class="form-group">
                         <label for="nama_list">To Do list</label>
-                        <input type="text" class="form-control" id="nama_list" name="nama_list" aria-describedby="textHelp" autofocus required>
-                        <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ auth()->user()->id }}" aria-describedby="textHelp" required>
+                        <select class="custom-select" name="mata_kuliah">
+                            <option selected>Select Mata Kuliah </option>
+                            @foreach ($listMatkul as $list)
+
+                            <option value="{{ $list->mata_kuliah }}">{{ $list->mata_kuliah }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" class="form-control" id="nama_list" name="nama_list"
+                            aria-describedby="textHelp" autofocus required> --}}
+                        <input type="hidden" class="form-control" id="user_id" name="user_id"
+                            value="{{ auth()->user()->id }}" aria-describedby="textHelp" required>
                     </div>
                 </div>
                 <div class="modal-footer">

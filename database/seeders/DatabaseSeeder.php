@@ -27,18 +27,21 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(5)->create();
         MataKuliah::create([
-            'mata_kuliah' => 'Algoritma'
+            'mata_kuliah' => 'Algoritma',
+            'user_id' => 2
+            
         ]);
         MataKuliah::create([
-            'mata_kuliah' => 'Pemrograman Dasar'
-        ]);
-        ToDoList::create([
-            'nama_list' => 'Belajar Pemrograman',
-            'user_id' => 2
-        ]);
-        ToDoList::create([
-            'nama_list' => 'Belajar Algoritma',
+            'mata_kuliah' => 'Pemrograman Dasar',
             'user_id' => 3
         ]);
+        // ToDoList::create([
+        //     'nama_list' => 'Belajar Pemrograman',
+        //     'user_id' => 2
+        // ]);
+        // ToDoList::create([
+        //     'nama_list' => 'Belajar Algoritma',
+        //     'user_id' => 3
+        // ]);
     }
 }

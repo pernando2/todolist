@@ -33,6 +33,7 @@ Route::controller(MahasiswaController::class)->middleware('auth')->group(functio
 });
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {
+    Route::get('/dashboard/dashboard', 'indexDashboard');
     Route::get('/dashboard/mahasiswa', 'index');
     Route::post('/dashboard/mahasiswa', 'store');
     Route::get('/dashboard/mahasiswa/{user}/edit', 'edit');
