@@ -18,8 +18,8 @@ class MahasiswaController extends Controller
     {
         // dd(MataKuliah::all());
         return view('backend-template.mahasiswa.content', [
-            'lists' => MataKuliah::where('user_id', auth()->user()->id)->groupBy('mata_kuliah')->get(),
-            'listMatkul' => MataKuliah::groupBy('mata_kuliah')->get()
+            'lists' => MataKuliah::where('user_id', auth()->user()->id)->groupBy('mata_kuliah', 'user_id', 'id')->get(),
+            'listMatkul' => MataKuliah::groupBy('mata_kuliah', 'user_id', 'id')->get()
         ]);
     }
 
@@ -73,7 +73,7 @@ class MahasiswaController extends Controller
     {
         return view('backend-template.mahasiswa.edit', [
             'list' => $list,
-            'listMatkul' => MataKuliah::groupBy('mata_kuliah')->get(),
+            'listMatkul' => MataKuliah::groupBy('mata_kuliah', 'user_id', 'id')->get(),
         ]);
     }
 

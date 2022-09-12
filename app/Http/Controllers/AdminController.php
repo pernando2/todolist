@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         // dd(Mahasiswa::all());
         return view('backend-template.admin.mataKuliah.content', [
-            'matakuliah' => MataKuliah::groupBy('mata_kuliah')->get(),
+            'matakuliah' => MataKuliah::groupBy('mata_kuliah', 'user_id', 'id')->get(),
         ]);
     }
 
@@ -175,7 +175,7 @@ class AdminController extends Controller
 
     public function generatePDF(User $user)
     {
-        $data = MataKuliah::where('user_id', $user->id)->groupBy('mata_kuliah')->get();
+        $data = MataKuliah::where('user_id', $user->id)->groupBy('mata_kuliah', 'user_id', 'id')->get();
         // dd($data);
 
         // return view('backend-template.admin.mahasiswa.pdf', [
