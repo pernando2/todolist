@@ -39,7 +39,7 @@ Route::controller(AdminController::class)->middleware('auth')->group(function ()
     Route::get('/dashboard/mahasiswa/{user}/edit', 'edit');
     Route::put('/dashboard/mahasiswa/{user}', 'update');
     Route::delete('/dashboard/mahasiswa/{user}', 'destroy');
-    Route::get('/dashboard/mahasiswa/pdf', 'generatePDF');
+    Route::get('/dashboard/mahasiswa/{user}/pdf', 'generatePDF');
 
     Route::get('/dashboard/mataKuliah', 'indexMatkul');
     Route::post('/dashboard/mataKuliah', 'storeMatkul');

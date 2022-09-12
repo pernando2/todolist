@@ -64,7 +64,6 @@ class AdminController extends Controller
             'password' => "required",
         ]);
         $validatedData['password'] = bcrypt($validatedData['password']);
-        // dd($validatedData);
 
         User::create($validatedData);
 
@@ -75,8 +74,9 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'mata_kuliah' => "required",
-            'user_id' => mt_rand(1,6),
         ]);
+
+        $validatedData['user_id'] = mt_rand(1,6);
 
         MataKuliah::create($validatedData);
 
@@ -173,12 +173,17 @@ class AdminController extends Controller
         return redirect('/dashboard/mataKuliah')->with('delete', 'Mahasiswa has been deleted!');
     }
 
-    public function generatePDF()
+    public function generatePDF(User $user)
     {
-        $data = MataKuliah::where('user_id', auth()->user()->id)->groupBy('mata_kuliah')->get();
+        $data = MataKuliah::where('user_id', $user->id)->groupBy('mata_kuliah')->get();
+        // dd($data);
+
+        // return view('backend-template.admin.mahasiswa.pdf', [
+        //     'lists' => $data
+        // ]);
           
         $pdf = PDF::loadView('backend-template.admin.mahasiswa.pdf', ['lists' => $data]);
     
-        return $pdf->download('Mahasiswa.pdf');
+        return $pdf->stream('Mahasiswa');
     }
 }
